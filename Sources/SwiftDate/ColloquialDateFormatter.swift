@@ -135,13 +135,13 @@ public class ColloquialDateFormatter {
 		
 		// Months difference
         if let months = value(for: .month, in: cmps) {
-			if isDistant { return distant(for: .month, in: tDate) }
+			if isDistant { return distant(for: .month, in: fDate) }
             return colloquialString(for: .month, value: months, future: isFuture, args: abs(months))
         }
 		
 		// Days difference
         if let days = value(for: .day, in: cmps) {
-			if isDistant { return distant(for: .day, in: tDate) }
+			if isDistant { return distant(for: .day, in: fDate) }
             let isWeekAllowed = options.allowedComponents.contains(.weekOfYear)
             if days < ColloquialDateFormatter.DAYS_IN_WEEK || !isWeekAllowed { // Less than a week or week representation is not accepted
                 return colloquialString(for: .day, value: days, future: isFuture, args: abs(days))
@@ -155,7 +155,7 @@ public class ColloquialDateFormatter {
 		
 		// Hours difference
         if let hours = value(for: .hour, in: cmps) {
-			if isDistant { return distant(for: .hour, in: tDate) }
+			if isDistant { return distant(for: .hour, in: fDate) }
 			let isDifferentDay = (cal.isDate(fDate.absoluteDate, inSameDayAs: tDate.absoluteDate) == false)
 			if isDifferentDay == true { // cross day comparison, return yesterday or tomorrow
 				return options.locale.localizedString(identifier: (isFuture ? "colloquial_f_d" : "colloquial_p_d"), arguments: [])
